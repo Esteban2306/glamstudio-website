@@ -3,7 +3,8 @@ import {
     IsNotEmpty,
     IsOptional,
     IsDateString,
-    IsEmail
+    IsEmail,
+    IsPhoneNumber
 } from "class-validator";
 
 export class CreateBookingDto {
@@ -22,6 +23,7 @@ export class CreateBookingDto {
 
     @IsString()
     @IsOptional()
+    @IsPhoneNumber()
     phone?: string;
 
     @IsString()
