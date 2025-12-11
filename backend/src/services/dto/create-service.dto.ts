@@ -16,8 +16,4 @@ export class CreateServiceDto {
   @IsNumber()
   @IsNotEmpty()
   price: number;
-
-  @IsString()
-  @IsNotEmpty()
-  categoryId: string;
 }

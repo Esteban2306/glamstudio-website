@@ -1,29 +1,29 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { CreateServiceDto } from "./dto/create-service.dto";
 import { PrismaService } from "src/prisma/prisma.service";
+import { UpdateServiceDto } from "./dto/update-service.dto";
 
 @Injectable()
 export class ServicesService {
 
     constructor(private prisma: PrismaService ) {}
     
-    async createServices(id: string, dto: CreateServiceDto) {
+    async createServices(categoryId: string, dto: CreateServiceDto) {
+    const categoryExists = await this.prisma.category.findUnique({
+        where: { id: categoryId }
+    });
 
-        const categoryExists = await this.prisma.category.findUnique({
-            where: { id }
-        });
-
-        if (!categoryExists) {
-            throw new NotFoundException('La categoría no existe.');
-        }
-
-        return await this.prisma.service.create({
-            data: {
-                ...dto,
-                id
-            }
-        });
+    if (!categoryExists) {
+        throw new NotFoundException('La categoría no existe.');
     }
+
+    return await this.prisma.service.create({
+        data: {
+            ...dto,
+            categoryId
+        }
+    });
+}
 
     async getServices() {
         return await this.prisma.service.findMany({
@@ -52,7 +52,7 @@ export class ServicesService {
     }
 
 
-    async updateService(id: string, dto: Partial<CreateServiceDto>) {
+    async updateService(id: string, dto: Partial<UpdateServiceDto>) {
 
         const exists = await this.prisma.service.findUnique({
             where: { id }

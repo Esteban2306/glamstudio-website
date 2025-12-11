@@ -3,13 +3,14 @@ import { ServicesService } from "./services.service";
 import { CreateServiceDto } from "./dto/create-service.dto";
 import { JwtGuard } from "src/auth/guards/jwt-auth.guard";
 import { AdminGuard } from "src/auth/guards/admin.guard";
+import { UpdateServiceDto } from "./dto/update-service.dto";
 
 @Controller('services')
 export class ServicesController {
 
     constructor(private serviceService: ServicesService) {}
 
-@Get('category/:id')
+    @Get('category/:id')
     getServiceByCategory(@Param('id') id: string){
         return this.serviceService.getServiceByCategory(id)
     }
@@ -19,7 +20,6 @@ export class ServicesController {
         return this.serviceService.getServices()
     }
 
-    
 
     @Get(':id')
     getServiceById(@Param('id') id:string){
@@ -28,14 +28,17 @@ export class ServicesController {
 
 
     @UseGuards(JwtGuard, AdminGuard)
-    @Post()
-    createService(id: string, @Body() dto:CreateServiceDto){
-        return this.serviceService.createServices(id, dto)
-    }
+    @Post(':categoryId')
+    createService(
+    @Param('categoryId') categoryId: string,
+    @Body() dto: CreateServiceDto
+) {
+    return this.serviceService.createServices(categoryId, dto);
+}
 
     @UseGuards(JwtGuard, AdminGuard)
     @Patch(':id')
-    updateService(@Param('id') id: string, @Body() dto: Partial<CreateServiceDto>){
+    updateService(@Param('id') id: string, @Body() dto: Partial<UpdateServiceDto>){
         return this.serviceService.updateService(id, dto)
     }
 
