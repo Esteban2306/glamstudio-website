@@ -1,0 +1,1 @@
+export const BUSINESS_TIMEZONE = 'America/Bogota';

@@ -4,10 +4,13 @@ import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
 import { BookingModule } from './booking/booking.module';
 import { ServicesModule } from './services/services.module';
-import { ScheduleModule } from './schedule/schedule.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { CategoryModule } from './category/category.module';
+import { BusinessHoursModule } from './business-hours/business-hours.module';
+import { ScheduleBlockModule } from './schedule-block/schedule-block.module';
+import { OverrideHoursModule } from './override-hours/override-hours.module';
+import { AvailabilityModule } from './availability/availability.module';
 
 @Module({
   imports: [
@@ -20,10 +23,13 @@ import { CategoryModule } from './category/category.module';
 
     BookingModule,
     ServicesModule,
-    ScheduleModule,
     UsersModule,
     AuthModule,
-    CategoryModule
+    CategoryModule,
+    BusinessHoursModule,
+    ScheduleBlockModule,
+    OverrideHoursModule,
+    AvailabilityModule
   ],
 })
 export class AppModule {}

@@ -1,38 +1,41 @@
-import { Body, Controller, Get, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, Param, UseGuards } from '@nestjs/common';
 import { BookingService } from './booking.service';
 import { CreateBookingDto } from './dto/create-booking.dto';
+import { JwtGuard } from 'src/auth/guards/jwt-auth.guard';
+import { AdminGuard } from 'src/auth/guards/admin.guard';
+import { CurrentUser } from 'src/users/decorators/current-user.decorator';
+import type { JwtUserPayload } from 'src/auth/decorator/current-user.decorator';
+import { OptionalJwtGuard } from 'src/auth/guards/optional-jwt.guard';
 
 @Controller('/booking')
 export class BookingController {
   constructor(private bookingService: BookingService) {}
 
+  @UseGuards(OptionalJwtGuard)
+  @Post()
+  create(@Body() dto: CreateBookingDto, @CurrentUser() user?: JwtUserPayload,) {
+    return this.bookingService.createBooking(dto, user?.sub);
+  }
+
+  @UseGuards(OptionalJwtGuard)
+  @Patch(':id/cancel')
+  cancel(@Param('id') id: string, @CurrentUser() user?: JwtUserPayload) {
+    return this.bookingService.cancelBooking(id, user?.sub);
+  }
+
+  @UseGuards(JwtGuard, AdminGuard)
+  @Patch(':id/confirm')
+  confirm(@Param('id') id: string) {
+    return this.bookingService.confirmBooking(id);
+  }
+  @UseGuards(JwtGuard, AdminGuard)
   @Get()
-  GetBookingsByDate() {
-    return 'Bookings for the date';
+  getAll() {
+    return this.bookingService.getAll();
   }
 
-  @Get()
-  GetPendingBookings() {
-    return 'Pending bookings';
-  }
-
-  @Post('/create')
-  createBooking(@Body() dto: CreateBookingDto) {
-    return this.bookingService.createBooking(dto);
-  }
-
-  @Post('/:id/confirmation')
-  uploadBookingConfirmation() {
-    return 'Booking confirmation uploaded!';
-  }
-
-  @Patch('/:id/cancel')
-  cancelBooking() {
-    return 'Booking cancelled!';
-  }
-
-  @Patch('/:id/confirm')
-  confirmBooking() {
-    return 'Booking confirmed!';
+  @Get('by-date/:date')
+  getByDate(@Param('date') date: string) {
+    return this.bookingService.getByDate(date);
   }
 }

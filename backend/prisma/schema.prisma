@@ -79,19 +79,29 @@ model Category {
 model Booking {
   id String @id @default(uuid())
 
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
+  userId String?
+  user   User? @relation(fields: [userId], references: [id])
+
+  guestName  String?
+  guestEmail String?
+  guestPhone String?
 
   serviceId String
   service   Service @relation(fields: [serviceId], references: [id])
 
-  date    DateTime
+  date      DateTime
+  startTime Int
+  endTime   Int
+
   status  BookingStatus @default(PENDING)
   comment String?
 
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
   transactionProofs TransactionProof[]
+
+  @@index([date, startTime])
+  @@index([date, endTime])
 }
 
 model TransactionProof {
@@ -107,15 +117,47 @@ model TransactionProof {
 model Schedule {
   id        String    @id @default(uuid())
   day       DayOfWeek
-  startTime String
-  endTime   String
+  /// minutos desde medianoche: 0..1439
+  startTime Int
+  endTime   Int
+  reason    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([day, startTime])
+  @@index([day, endTime])
 }
 
 model ScheduleBlock {
   id        String   @id @default(uuid())
   date      DateTime
-  startTime String
-  endTime   String
+  startTime Int?
+  endTime   Int?
   reason    String?
+
   createdAt DateTime @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@index([date, startTime])
+}
+
+model BusinessHours {
+  id        String     @id @default(uuid())
+  day       DayOfWeek
+  startTime Int        
+  endTime   Int
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model OverrideHours {
+  id        String    @id @default(uuid())
+  date      DateTime  
+  startTime Int
+  endTime   Int
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
