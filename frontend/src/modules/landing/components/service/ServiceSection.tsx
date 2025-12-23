@@ -6,7 +6,7 @@ export default function ServiceSection() {
   return (
     <section className="relative bg-[#FFEFD3] py-24 overflow-hidden">
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <LightRays
+        {/* <LightRays
           raysOrigin="top-center"
           raysColor="#D4AF37"
           raysSpeed={1}
@@ -16,7 +16,7 @@ export default function ServiceSection() {
           saturation={1}
           followMouse={true}
           mouseInfluence={0.05}
-        />
+        /> */}
 
         <div className="absolute inset-0 bg-[#FFEFD3]/85" />
       </div>

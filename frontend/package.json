@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "generate:gallery": "node scripts/generate-gallery-data.js",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
