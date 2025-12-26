@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Great_Vibes, Merriweather } from "next/font/google";
 import "../src/style/globals.css";
+import Footer from "@/src/components/footer/Footer";
 
 const greatVibes = Great_Vibes({
   subsets: ["latin"],
@@ -17,6 +18,9 @@ const merriweather = Merriweather({
 export const metadata: Metadata = {
   title: "GlamStudio",
   description: "Estudio de belleza premium",
+  icons: {
+    icon: "./favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -27,9 +31,10 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className={`${greatVibes.variable} ${merriweather.variable} antialiased overflow-x-hidden`}
+        className={`${greatVibes.variable} ${merriweather.variable} antialiased overflow-x-hidden bg-[#FFEFD3]`}
       >
         {children}
+        <Footer />
       </body>
     </html>
   );
