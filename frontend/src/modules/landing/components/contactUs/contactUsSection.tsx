@@ -4,7 +4,7 @@ import { RippleButton } from "@/src/components/ui/shadcn-io/ripple-button";
 
 export default function ContactUsSection() {
   return (
-    <section className="py-24 bg-[#FFEFD3]">
+    <section className="py-24 bg-[#fcf5e8]">
       <div className=" mx-auto px-6 text-center max-w-152.5">
         <h2 className="font-mono text-3xl md:text-6xl text-black mb-4">
           Ponte en contacto

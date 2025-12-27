@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function FormSection() {
   return (
-    <section className=" relative py-24 bg-[#FFEFD3] h-[1000px] ">
+    <section className=" relative py-24 bg-[#fcf5e8] h-250 ">
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start h-120">
           <FormLegend />
@@ -14,12 +14,12 @@ export default function FormSection() {
           </div>
         </div>
       </div>
-      <div className="absolute -bottom-100 -right-70 z-0">
+      <div className="absolute -bottom-15 -right-70 z-1">
         <Image
           src={floatBackground}
           alt="background"
-          width={1000}
-          height={1000}
+          width={1200}
+          height={1200}
         />
       </div>
     </section>

@@ -4,8 +4,8 @@ import Shuffle from "../ui/shadcn-io/shuffle";
 
 export default function FooterLinks() {
   return (
-    <div>
-      <h4 className="text-black font-semibold mb-4">Quick links</h4>
+    <div className="z-10">
+      <h4 className="text-black font-semibold mb-4 z-10">Quick links</h4>
       <ul className="space-y-2">
         {footerLinks.map((link) => (
           <li key={link.label}>
@@ -13,7 +13,7 @@ export default function FooterLinks() {
               href={link.href}
               className="text-[#000000] hover:text-[#C2A85D] transition"
             >
-              <Shuffle text={link.label} className="" />
+              <Shuffle text={link.label} className="text-" />
             </Link>
           </li>
         ))}

@@ -1,27 +1,23 @@
 import CardService from "../../service/serviceSection/cardsService";
 import { services } from "./service.data";
-import LightRays from "@/src/components/ui/shadcn-io/lightRigts/LightRays";
+import Orb from "@/src/components/ui/shadcn-io/bgOrb/Orb";
 
 export default function ServiceSection() {
   return (
-    <section className="relative bg-[#FFEFD3] py-24 overflow-hidden">
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* <LightRays
-          raysOrigin="top-center"
-          raysColor="#D4AF37"
-          raysSpeed={1}
-          lightSpread={0.3}
-          rayLength={3}
-          fadeDistance={1}
-          saturation={1}
-          followMouse={true}
-          mouseInfluence={0.05}
-        /> */}
+    <section className="relative bg-[#fcf5e8] py-24 overflow-hidden">
+      <div className="absolute left-0 top-[65%] w-full h-1/2 -translate-y-1/2 z-0 pointer-events-none">
+        <Orb
+          hue={12}
+          hoverIntensity={0.15}
+          rotateOnHover={true}
+          backgroundColor="#fcf5e8"
+        />
 
-        <div className="absolute inset-0 bg-[#FFEFD3]/85" />
+        <div className="absolute inset-0 bg-[#fcf5e8]/60 " />
       </div>
+
       <div className="relative z-10 max-w-7xl mx-auto px-6 flex flex-col gap-16">
-        <div className="flex flex-col items-center gap-4 text-center">
+        <div className="flex flex-col items-center gap-2 text-center">
           <h2 className="text-5xl md:text-6xl text-black font-mono">
             Servicios
           </h2>

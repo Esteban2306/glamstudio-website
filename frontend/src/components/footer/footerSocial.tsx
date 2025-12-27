@@ -9,8 +9,8 @@ const icons = {
 
 export default function FooterSocial() {
   return (
-    <div>
-      <h4 className="text-[#C2A85D] font-semibold mb-4">Follow us</h4>
+    <div className="z-10">
+      <h4 className="text-[#C2A85D] font-semibold mb-4 z-10">Follow us</h4>
       <div className="flex gap-4">
         {socialLinks.map((item) => {
           const Icon = icons[item.icon as keyof typeof icons];

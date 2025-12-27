@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function HeroSection() {
   return (
     <>
-      <section className="relative w-full min-h-[600px] bg-[#E5B997] overflow-hidden flex items-center">
+      <section className="relative w-full min-h-150 bg-[#E5B997] overflow-hidden flex items-center">
         <div className="absolute inset-0 flex justify-end">
           <div className="relative w-1/2 h-full ">
             <Image
@@ -25,7 +25,7 @@ export default function HeroSection() {
         absolute top-0 left-1/2
         h-full w-80
         -translate-x-1/2
-        bg-gradient-to-r from-[#E5B997] 
+        bg-linear-to-r from-[#E5B997] 
       "
           />
         </div>
