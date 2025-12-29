@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Silk from "@/src/components/ui/shadcn-io/bgSlig/Silk";
 
 import galleryItems from "./gallery.data";
 import { buildGallery } from "../../service/gallery/gallery.utils";
