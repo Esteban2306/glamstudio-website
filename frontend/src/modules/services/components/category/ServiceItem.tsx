@@ -7,7 +7,6 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogClose,
 } from "@/src/components/ui/shadcn-io/dialog/dialog";
 import Image from "next/image";
 import { Button } from "@/src/components/ui/button";
@@ -25,7 +24,7 @@ export default function ServiceItem({ service }: Props) {
         <p className="text-sm text-gray-700 leading-relaxed max-w-112.5">
           {service.description}
         </p>
-        <div className="mt-10 flex justify-center items-center gap-8 min-h-[60px]">
+        <div className="mt-10 flex justify-center items-center gap-8 min-h-15">
           <ShimmerButton className="bg-[#E0C49C] text-black">
             Solicitar esta técnica
           </ShimmerButton>

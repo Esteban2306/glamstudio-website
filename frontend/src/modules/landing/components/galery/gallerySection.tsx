@@ -23,7 +23,10 @@ export default function GallerySection() {
   const gallery = buildGallery(galleryItems, activeFilter);
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#FFEFD3]">
+    <section
+      className="relative min-h-screen overflow-hidden bg-[#FFEFD3]"
+      id="gallery"
+    >
       <div
         className="
   absolute top-0 left-0 w-full h-68 pointer-events-none
