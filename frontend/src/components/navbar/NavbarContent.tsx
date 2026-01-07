@@ -102,7 +102,6 @@ export default function NavbarContent() {
           <button
             onClick={() => {
               setProfileOpen(false);
-              console.log("login");
             }}
             className="
               w-full text-left rounded-md px-3 py-2 text-sm
