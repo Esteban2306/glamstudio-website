@@ -1,4 +1,4 @@
-import ServiceFilters from "./ServiceFilter";
+import ServiceFilters from "./serviceFilter";
 import ServiceList from "./ServiceList";
 
 export default function ServiceBrowser({ booking }: any) {
