@@ -98,7 +98,11 @@ export default function AddServiceDialog({ onSelect, selectedIds }: Props) {
                 disabled={isSelected}
                 onClick={() => {
                   onSelect(service);
+<<<<<<< HEAD
                   setOpen(false); // 👈 CIERRA el modal correctamente
+=======
+                  setOpen(false);
+>>>>>>> 8284525 (merge posteriori change)
                 }}
                 className={`
                   w-full rounded-lg px-4 py-3 text-left transition
