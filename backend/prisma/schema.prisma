@@ -16,6 +16,7 @@ datasource db {
 
 enum Role {
   CLIENT
+  LASHIST
   ADMIN
 }
 
@@ -45,9 +46,41 @@ model User {
   role     Role    @default(CLIENT)
 
   bookings Booking[]
+  lashist  Lashist?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Lashist {
+  id String @id @default(uuid())
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  isActive Boolean @default(true)
+  bio      String
+  avatar   String
+
+  categories    LashistCategory[]
+  businessHours BusinessHours[]
+  blocks        ScheduleBlock[]
+  bookings      Booking[]
+  overrideHours OverrideHours[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model LashistCategory {
+  id         String @id @default(uuid())
+  lashistId  String
+  categoryId String
+
+  lashist  Lashist  @relation(fields: [lashistId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id])
+
+  @@unique([lashistId, categoryId])
 }
 
 model Service {
@@ -67,10 +100,12 @@ model Service {
 }
 
 model Category {
-  id       String    @id @default(uuid())
-  name     String    @unique
-  image    String?
-  services Service[]
+  id    String  @id @default(uuid())
+  name  String  @unique
+  image String?
+
+  services          Service[]
+  lashistCategories LashistCategory[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -80,7 +115,10 @@ model Booking {
   id String @id @default(uuid())
 
   userId String?
-  user   User? @relation(fields: [userId], references: [id])
+  user   User?   @relation(fields: [userId], references: [id])
+
+  lashistId String
+  lashist   Lashist @relation(fields: [lashistId], references: [id])
 
   guestName  String?
   guestEmail String?
@@ -102,62 +140,64 @@ model Booking {
 
   @@index([date, startTime])
   @@index([date, endTime])
+  @@index([lashistId, date, startTime])
 }
 
 model TransactionProof {
   id       String @id @default(uuid())
   imageUrl String
 
-  bookindId String
-  booking   Booking @relation(fields: [bookindId], references: [id])
+  bookingId String
+  booking   Booking @relation(fields: [bookingId], references: [id])
 
   uploadedAt DateTime @default(now())
 }
 
-model Schedule {
-  id        String    @id @default(uuid())
-  day       DayOfWeek
-  /// minutos desde medianoche: 0..1439
-  startTime Int
-  endTime   Int
-  reason    String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([day, startTime])
-  @@index([day, endTime])
-}
-
 model ScheduleBlock {
-  id        String   @id @default(uuid())
+  id String @id @default(uuid())
+
   date      DateTime
   startTime Int?
   endTime   Int?
   reason    String?
 
+  lashistId String?
+  lashist   Lashist? @relation(fields: [lashistId], references: [id])
+
   createdAt DateTime @default(now())
-  updatedAt DateTime   @updatedAt
+  updatedAt DateTime @updatedAt
 
   @@index([date, startTime])
+  @@index([lashistId, date])
 }
 
 model BusinessHours {
-  id        String     @id @default(uuid())
-  day       DayOfWeek
-  startTime Int        
-  endTime   Int
-
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-}
-
-model OverrideHours {
   id        String    @id @default(uuid())
-  date      DateTime  
+  day       DayOfWeek
   startTime Int
   endTime   Int
 
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  lashistId String
+  lashist   Lashist @relation(fields: [lashistId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([lashistId, day])
+  @@index([lashistId, day])
+  @@index([day, startTime])
+  @@index([day, endTime])
+}
+
+model OverrideHours {
+  id        String   @id @default(uuid())
+  date      DateTime
+  startTime Int
+  endTime   Int
+
+  lashistId String?
+  lashist   Lashist? @relation(fields: [lashistId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
